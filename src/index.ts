@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import connectDB from './config/db';
-import user from './routes/user';
+import user from './routes/auth.routes';
 
 const app = express();
 const PORT = 5001;

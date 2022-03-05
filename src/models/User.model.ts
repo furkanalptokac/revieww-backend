@@ -54,7 +54,7 @@ const Schema = new mongoose.Schema({
   ],
   date: {
     type: Date,
-    default: Date.now,
+    default: date,
   },
 });
 
