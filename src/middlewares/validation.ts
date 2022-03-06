@@ -1,5 +1,9 @@
 import Joi from 'joi';
-import { IRegisterValidation, ILoginValidation } from './authValidation.type';
+import {
+  IRegisterValidation,
+  ILoginValidation,
+  ICreatePostValidation,
+} from './validation.types';
 
 const registerValidation = (data: IRegisterValidation) => {
   const schema = Joi.object({
@@ -24,4 +28,14 @@ const loginValidation = (data: ILoginValidation) => {
   return schema.validate(data);
 };
 
-export { registerValidation, loginValidation };
+const createPostValidation = (data: ICreatePostValidation) => {
+  const schema = Joi.object({
+    title: Joi.string().required(),
+    content: Joi.string().required(),
+    category: Joi.string().required(),
+  });
+
+  return schema.validate(data);
+};
+
+export { registerValidation, loginValidation, createPostValidation };

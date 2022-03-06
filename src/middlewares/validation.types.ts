@@ -12,3 +12,12 @@ export interface ILoginValidation {
   email: string;
   password: string;
 }
+
+export interface ICreatePostValidation {
+  title: string;
+  content: string;
+  name: string;
+  surname: string;
+  avatar: string;
+  category: string;
+}

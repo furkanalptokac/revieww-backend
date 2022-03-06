@@ -4,23 +4,20 @@ import bcrypt from 'bcrypt';
 import normalizeUrl from 'normalize-url';
 import gravatar from 'gravatar';
 import jwt from 'jsonwebtoken';
-import User from '../models/User.model';
-import {
-  registerValidation,
-  loginValidation,
-} from '../middlewares/authValidation';
+import { User } from '../models';
+import { registerValidation, loginValidation } from '../middlewares';
 
 const register = async (req: Request, res: Response) => {
-  let user = await User.findOne({ email: req.body.email });
-
-  if (user) {
-    return res.status(400).send({ error: 'User already exists' });
-  }
-
   const { error } = registerValidation(req.body);
 
   if (error) {
     return res.status(400).send({ error: error.details[0].message });
+  }
+
+  let user = await User.findOne({ email: req.body.email });
+
+  if (user) {
+    return res.status(400).send({ error: 'User already exists' });
   }
 
   const avatar = normalizeUrl(

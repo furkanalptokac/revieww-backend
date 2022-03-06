@@ -1,6 +1,7 @@
 import { Response, NextFunction } from 'express';
+import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { IExtendedRequest } from './verifyToken.type';
+import { IExtendedRequest } from './authVerify.type';
 
 const verifyToken = (
   req: IExtendedRequest,
@@ -22,4 +23,14 @@ const verifyToken = (
   }
 };
 
-export default verifyToken;
+// TODO: id: any
+const verifyObjectId =
+  (id: string) =>
+  (req: IExtendedRequest, res: Response, next: NextFunction) => {
+    if (!mongoose.Types.ObjectId.isValid(req.params[id])) {
+      return res.status(400).send({ error: 'Invalid ID.' });
+    }
+    next();
+  };
+
+export { verifyToken, verifyObjectId };

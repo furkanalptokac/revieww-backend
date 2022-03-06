@@ -1,7 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
-import connectDB from './config/db';
-import user from './routes/auth.routes';
+import { connectDB } from './config';
+import { auth, post } from './routes';
 
 const app = express();
 const PORT = 5001;
@@ -11,7 +11,8 @@ app.set('port', process.env.PORT || PORT);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
-app.use('/api/users/', user);
+app.use('/api/auth/', auth);
+app.use('/api/posts/', post);
 
 connectDB();
 
