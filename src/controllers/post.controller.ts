@@ -1,9 +1,5 @@
 import { Response } from 'express';
-import {
-  createPostValidation,
-  IExtendedRequest,
-  UserType,
-} from '../middlewares';
+import { createPostValidation, IExtendedRequest } from '../middlewares';
 import { Post, User } from '../models';
 
 const createPost = async (req: IExtendedRequest, res: Response) => {
@@ -12,8 +8,8 @@ const createPost = async (req: IExtendedRequest, res: Response) => {
   if (error) {
     return res.status(400).send({ error: error.details[0].message });
   }
+
   try {
-    req.user = req.user as UserType;
     const user = await User.findById(req.user._id);
 
     if (!user) {

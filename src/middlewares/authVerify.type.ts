@@ -1,5 +1,4 @@
 import { Request } from 'express';
-import { JwtPayload } from 'jsonwebtoken';
 
 export type UserType = {
   _id: string;
@@ -8,8 +7,6 @@ export type UserType = {
   exp: number;
 };
 
-type Decoded = string | JwtPayload;
-
 export interface IExtendedRequest extends Request {
-  user?: UserType | Decoded;
+  user?: UserType;
 }

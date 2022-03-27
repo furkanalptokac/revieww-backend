@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
-import { IExtendedRequest } from './authVerify.type';
+import { IExtendedRequest, UserType } from './authVerify.type';
 
 const verifyToken = (
   req: IExtendedRequest,
@@ -16,7 +16,7 @@ const verifyToken = (
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET || 'secret');
-    req.user = decoded;
+    req.user = decoded as unknown as UserType;
     next();
   } catch (error) {
     return res.status(400).send({ error: 'Invalid token.' });
